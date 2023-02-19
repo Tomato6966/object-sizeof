@@ -59,7 +59,7 @@ function objectSizeComplex (obj) {
     } else if (obj instanceof Float64Array) {
       return obj.length * ECMA_SIZES.Float64Array
     }
-    const objectToString = JSON.stringify(potentialConversion)
+    const objectToString = JSON.stringify(potentialConversion, (_, v) => (typeof v === 'bigint' ? `${v}` : v))
     const buffer = new Buffer.from(objectToString)
     totalSize = buffer.byteLength
   } catch (ex) {
